@@ -1,0 +1,18 @@
+{
+  "name": "back-sapsprint1",
+  "version": "1.0.0",
+  "description": "Gestión de impresoras de Sapsprint1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}
