@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+import { exec } from 'child_process';
 const regexNumImp = /\d+$/g;
 const regexError = /error/gi;
 // const regFechaPrimerTrabajo = /^(hora|time).*?$/gim;
@@ -8,7 +8,7 @@ const regId = /(trabajo|id).(\d+)/i;
 let idPrimerTrabajo = 1;
 
 
-const trabajos = (printer) => {
+export const trabajos = (printer) => {
 
     return new Promise((resolve, reject) => {
 
@@ -61,4 +61,6 @@ const trabajos = (printer) => {
     });
 };
 
-module.exports = trabajos;
+// module.exports = trabajos;
+
+// export default trabajos;

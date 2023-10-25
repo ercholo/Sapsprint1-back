@@ -1,8 +1,8 @@
-const { exec } = require('child_process');
+import { exec } from 'child_process';
 const regexCorrecto = /(Correcto|Success)/gi;
 let pausa = Boolean;
 
-const pausar = (printer) => {
+export const pausar = (printer) => {
 
     return new Promise((resolve, reject) => {
 
@@ -29,4 +29,6 @@ const pausar = (printer) => {
     });
 };
 
-module.exports = pausar;
+// module.exports = pausar;
+
+// export default pausar;

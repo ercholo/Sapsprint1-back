@@ -1,17 +1,16 @@
 // host + /impresoras
+import logger from '../src/utils/logger.mjs';
+import { Router, request, response } from 'express';
+import dotenv from 'dotenv';
+import { pausar, reanudar, trabajos, estados, desviarImpresora, desviarImpresoraOriginal } from '../src/controllers/index.mjs';
 
-const { Router, request, response } = require('express');
-const router = Router();
-require('dotenv').config();
-// const { response } = require('express');
-const pausar = require('../controllers/pausaImpresora');
-const reanudar = require('../controllers/reanudaImpresora');
-const trabajos = require('../controllers/devuelveTrabajos');
-const estados = require('../controllers/devuelveEstado');
-const desviarImpresora = require('../controllers/desviaImpresoras');
-const desviarImpresoraOriginal = require('../controllers/desviaIpOriginal');
 let numeroPeticiones = 0;
 const impresoras = ["01ALAV101", "01ALAV102", "01ALAV201", "01ALAV202", "01ALDEV01", "01ALENT01", "01ALJEF01", "01ALPSI01", "01ALPYE01", "01ALPYE02", "01ALSAA01", "01ALSAF01", "01ALSAL01", "01ATTOM01", "01ATTOM02"]
+
+const router = Router();
+
+//variables de entorno
+dotenv.config();
 
 router.get('/', async (req, res = response) => {
 
@@ -48,7 +47,15 @@ router.get('/:nombreImpresora', async (req, res = response) => {
     // console.log(req.query.almacen)
     // console.log(req.query.HUEVO)
 
+
     let nombreImpresora = req.params.nombreImpresora;
+
+    logger.log(
+        {
+            level: 'mongodb',
+            message: `Puncho el botón Actualizar trabajo para ${nombreImpresora}`
+        }
+    );
 
     let request = trabajos(nombreImpresora)
         .then((response) => res.json(response))
@@ -121,4 +128,6 @@ router.get('/:nombreImpresora/pagPrueba', async (req, res = response) => {
         })
 });
 
-module.exports = router;
+// module.exports = router;
+
+export default router;

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Gestión de impresoras de Sapsprint1",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "npx nodemon index.js",
     "start": "node index.js"
@@ -14,6 +15,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "winston": "^3.11.0"
+    "express-winston": "^4.2.0",
+    "mongoose": "^7.6.3",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1",
+    "winston-mongodb": "^5.1.1"
   }
 }

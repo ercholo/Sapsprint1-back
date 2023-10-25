@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+import { exec } from 'child_process';
 
 const impresorasIP = [
     {
@@ -83,50 +83,45 @@ const impresorasIP = [
     }
 ]
 
-const regIsDesviada = /(Impresora configurada|Configured printer)/gi;
-let isDesviada = Boolean;
+const regEnSuSitioOriginal = /(Impresora configurada|Configured printer)/gi;
+let desviadaOriginal = Boolean;
 let ip = String
 
-const desviarImpresora = (impresoraDesviada, impresoraDestino) => {
+export const desviarImpresoraOriginal = (printer) => {
 
-    console.log(impresoraDesviada);
-    console.log(impresoraDestino);
-    
     for (let impresora of impresorasIP) {
-
-        if (impresora.impresora === impresoraDestino) {
-
-            ip = impresora.ip
-            console.log(ip)
-
-        } 
+        if (impresora.impresora === printer) {
+            ip = impresora.ip;
+        }
     }
 
     return new Promise((resolve, reject) => {
 
-        exec(`cscript prncnfg.vbs -t -s sapsprint -p ${impresoraDesviada} -r ${ip}`, { cwd: 'C:\\Windows\\System32\\Printing_Admin_Scripts\\es-ES' }, (error, stdout, stderr) => {
+        exec(`cscript prncnfg.vbs -t -s sapsprint -p ${printer} -r ${ip}`, { cwd: 'C:\\Windows\\System32\\Printing_Admin_Scripts\\es-ES' }, (error, stdout, stderr) => {
 
-                //Si hay errores, que los muestre
-                if (error) {
-                    console.log(stdout);
-                    console.log(stderr);
-                    reject();
-                };
+            console.log(stdout)
 
-                //Busco el estado de la impresora en el stdout y lo devuelvo
-                if (stdout.match(regIsDesviada)) {
-                    isDesviada = true
-                } else {
-                    isDesviada = false;
+            //Si hay errores, que los muestre
+            if (error) {
+                console.log(stdout);
+                console.log(stderr);
+                reject();
+            };
+
+            //Busca en el stdout si ha realizado la execución de manera correcta y la devuelvo.
+            if (stdout.match(regEnSuSitioOriginal)) {
+                desviadaOriginal = true
+            } else { desviadaOriginal = false }
+
+            resolve(
+                {
+                    desviadaOriginal: desviadaOriginal
                 }
-
-                    resolve(
-                        {
-                            isDesviada: isDesviada
-                        }
-                    );
-            });
+            );
+        });
     });
 };
 
-module.exports = desviarImpresora;
+// module.exports = desviarImpresoraOriginal;
+
+// export default desviarImpresoraOriginal;

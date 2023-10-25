@@ -1,8 +1,8 @@
-const { exec } = require('child_process');
+import { exec } from 'child_process';
 const regexCorrecto = /Correcto|Success/gi;
 let reanuda = Boolean;
 
-const reanudar = (printer) => {
+export const reanudar = (printer) => {
 
     return new Promise((resolve, reject) => {
 
@@ -29,4 +29,6 @@ const reanudar = (printer) => {
     });
 };
 
-module.exports = reanudar;
+// module.exports = reanudar;
+
+// export default reanudar;

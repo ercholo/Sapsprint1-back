@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+import { exec } from 'child_process';
 const regInactiva = /inactivo|idle/gi;
 const regImprimiendo = /imprimiendo|printing/gi;
 const regPausa = /pausado|paused/gi;
@@ -94,7 +94,7 @@ const impresorasIP = [
     }
 ]
 
-const estados = (printer) => {
+export const estados = (printer) => {
 
     return new Promise((resolve, reject) => {
 
@@ -237,4 +237,6 @@ const estados = (printer) => {
     });
 };
 
-module.exports = estados;
+// module.exports = estados;
+
+// export default estados;
