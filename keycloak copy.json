@@ -1,0 +1,8 @@
+{
+  "realm": "hefame-ldap-tst",
+  "server-url": "https://keycloak.hefame.es/",
+  "ssl-required": "none",
+  "clientId": "node-sapsprint1",
+  "bearer-only": true,
+  "confidential-port": 0
+}

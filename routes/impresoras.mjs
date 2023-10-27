@@ -47,7 +47,7 @@ router.get('/:nombreImpresora', async (req, res = response) => {
     // console.log(req.query.almacen)
     // console.log(req.query.HUEVO)
 
-
+    console.log(req.kauth.grant.access_token.content)
     let nombreImpresora = req.params.nombreImpresora;
 
     logger.log(
