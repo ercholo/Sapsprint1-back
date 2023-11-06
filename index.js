@@ -6,8 +6,6 @@ import router from './routes/impresoras.mjs';
 import 'winston-mongodb';
 import logger from './src/utils/logger.mjs';
 import dbConnection from './src/database/config.mjs';
-// import Keycloak  from 'keycloak-connect';
-import session from 'express-session';
 import { keycloak, sessionMiddle } from './keycloak.mjs'
 
 //variables de entorno
@@ -18,7 +16,7 @@ dotenv.config();
 //Crear servidor Express
 const app = express();
 
-//BBDD
+//Conectar con la base de datos
 // dbConnection();
 
 // corsOptions;
@@ -34,8 +32,6 @@ app.use(express.json());
 
 app.use(sessionMiddle);
 
-// console.log(keycloak.getConfig())
-
 app.use( keycloak.middleware() );
 
 // console.log(keycloak.getConfig());
@@ -46,4 +42,10 @@ app.use('/impresoras', keycloak.protect(), router);
 //Escuchar peticiones
 app.listen(process.env.PORT, () => {
     console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
+    logger.log(
+        {
+            level: 'mongodb',
+            message: `Servidor corriendo en puerto ${process.env.PORT}`
+        }
+    );
 })

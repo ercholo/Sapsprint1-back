@@ -3,6 +3,7 @@ import "winston-daily-rotate-file";
 import expressWinston from "express-winston";
 import dotenv from 'dotenv';
 import 'winston-mongodb';
+
 dotenv.config();
 
 const isDevelopment = (process.env.NODE_ENV || "development") !== "production";
@@ -46,7 +47,7 @@ export const colors = {
 	info: "green",
 	http: "magenta",
 	debug: "italic blue",
-	mongodb: "bold white",
+	mongodb: "bold cyan",
 	mariadb: "italic white",
 	rabbit: "italic white",
 	sched: "italic white",
@@ -57,9 +58,9 @@ export const colors = {
 winston.addColors(colors);
 
 const timezoned = () => {
-    return new Date().toLocaleString('en-US', {
-        timeZone: 'Europe/Madrid'
-    });
+	return new Date().toLocaleString('es-ES', {
+		"timezone": "Europe/Madrid"
+	});
 };
 
 console.log(timezoned())
@@ -69,7 +70,7 @@ const consoleTransportProduction = () => {
 		// handleExceptions: true,
 		format: winston.format.combine(
 			winston.format.errors({ stack: true }),
-			winston.format.timestamp({format: timezoned }), winston.format.json(),
+			winston.format.timestamp({ format: timezoned }), winston.format.json(),
 			winston.format.printf((info) => {
 				return info[Symbol.for("message")];
 			})
@@ -82,7 +83,7 @@ const consoleTransportDevelopment = () => {
 		// handleExceptions: true,
 		format: winston.format.combine(
 			winston.format.errors({ stack: true }),
-			winston.format.timestamp({format: timezoned }), winston.format.json(),
+			winston.format.timestamp({ format: timezoned }), winston.format.json(),
 			winston.format.colorize({ all: true }),
 			winston.format.printf((info) => {
 				return `${info.timestamp} ${info.level}\t${info.label ? `[${info.label}] ` : ""}${info.message}${info.stack ? "\r\n" + info.stack : ""
@@ -112,31 +113,18 @@ if (process.env.LOG_DESTINATION_DIR) {
 	);
 }
 
-if (process.env.LOG_DESTINATION_DIR) {
-
+try {
 	transports.push(
-		new winston.transports.File({
-			filename: 'event-logs.log',
-			dirname: process.env.LOG_DESTINATION_DIR,
-			format: winston.format.combine(winston.format.timestamp({format: timezoned }), winston.format.json()),
+		new winston.transports.MongoDB({
+			db: process.env.DB_CNN,
+			collection: process.env.COLLECTION,
+			level: 'mongodb',
+			format: winston.format.combine(winston.format.timestamp({ format: timezoned }), winston.format.json()),
+			options: { useUnifiedTopology: true }
 		})
 	);
-
-}
-
-
-try {
-    transports.push(
-        new winston.transports.MongoDB({
-            db: process.env.DB_CNN,
-            collection: process.env.COLLECTION,
-            level: 'mongodb',
-            format: winston.format.combine(winston.format.timestamp({format: timezoned }), winston.format.json()),
-            options: { useUnifiedTopology: true }
-        })
-    );
 } catch (error) {
-    logger.error(`Error al registrar en MongoDB: ${error.message}`);
+	logger.error(`Error al registrar en MongoDB: ${error.message}`);
 }
 
 // Create the logger instance that has to be exported

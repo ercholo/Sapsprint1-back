@@ -80,7 +80,83 @@ const impresorasIP = [
     {
         impresora: "03ALAV102",
         ip: "172.30.30.249"
-    }
+    },
+    {
+        impresora: "06ADCOM01",
+        ip: "172.30.60.247"
+    },
+    {
+        impresora: "06ALAV101",
+        ip: "172.30.60.245"
+    },
+    {
+        impresora: "06ALAV102",
+        ip: "172.30.60.249"
+    },
+    {
+        impresora: "06ALDEV01",
+        ip: "172.30.60.246"
+    },
+    {
+        impresora: "06ALEXP01",
+        ip: "172.30.60.101"
+    },
+    {
+        impresora: "06ALJEF01",
+        ip: "172.30.60.241"
+    },
+    {
+        impresora: "06ATTOM01",
+        ip: "172.30.60.248"
+    },
+    {
+        impresora: "08ALAV101",
+        ip: "172.30.41.240"
+    },
+    {
+        impresora: "08ALAV102",
+        ip: "172.30.41.241"
+    },
+    {
+        impresora: "08ALAV201",
+        ip: "172.30.41.242"
+    },
+    {
+        impresora: "08ALAV202",
+        ip: "172.30.41.243"
+    },
+    {
+        impresora: "08ALDEV01",
+        ip: "172.30.41.244"
+    },
+    {
+        impresora: "08ALEXP01",
+        ip: "172.30.41.245"
+    },
+    {
+        impresora: "08ALJEF01",
+        ip: "172.30.41.246"
+    },
+    {
+        impresora: "12ALAV101",
+        ip: "172.30.111.248"
+    },
+    {
+        impresora: "12ALAV102",
+        ip: "172.30.111.249"
+    },
+    {
+        impresora: "12ALDEV01",
+        ip: "172.30.111.247"
+    },
+    {
+        impresora: "12ALEXP01",
+        ip: "172.30.111.246"
+    },
+    {
+        impresora: "12ALJEF01",
+        ip: "172.30.111.245"
+    },
 ]
 
 const regEnSuSitioOriginal = /(Impresora configurada|Configured printer)/gi;
